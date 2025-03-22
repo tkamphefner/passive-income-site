@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseHome - Smart Security Cameras</title>
+  <style>
+    /* Fora-inspired design system */
+    :root {
+      /* Typography */
+      --font-serif: 'Georgia', serif;
+      --font-sans: 'Helvetica Neue', Arial, sans-serif;
+      
+      /* Colors */
+      --color-background: #FFFFFF;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-primary: #3A5BF0;
+      --color-secondary: #6C63FF;
+      --color-accent: #FF6B6B;
+      --color-neutral-100: #F8F9FA;
+      --color-neutral-200: #E9ECEF;
+      --color-neutral-300: #DEE2E6;
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 2rem;
+      --spacing-lg: 4rem;
+      --spacing-xl: 8rem;
+    }
+    
+    /* Base styles */
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background);
+    }
+    
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      margin-top: 0;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.3;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    h3 {
+      font-size: 1.75rem;
+      line-height: 1.4;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    p {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--color-secondary);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+    
+    /* Header */
+    .header {
+      padding: var(--spacing-sm) 0;
+      border-bottom: 1px solid var(--color-neutral-200);
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    
+    .logo span {
+      color: var(--color-primary);
+    }
+    
+    .nav {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .nav-link {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+      position: relative;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    .cta-button {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--color-secondary);
+      color: white;
+    }
+    
+    /* Hero section */
+    .hero {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-primary);
+      background-image: linear-gradient(135deg, rgba(58, 91, 240, 0.9) 0%, rgba(108, 99, 255, 0.9) 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: var(--spacing-lg);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Introduction section */
+    .introduction {
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .introduction-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Products section */
+    .products {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-neutral-100);
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-image {
+      height: 250px;
+      background-color: var(--color-neutral-200);
+      position: relative;
+    }
+    
+    .product-tag {
+      position: absolute;
+      top: var(--spacing-xs);
+      right: var(--spacing-xs);
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .product-content {
+      padding: var(--spacing-md);
+    }
+    
+    .product-content h3 {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .product-content p {
+      color: var(--color-text-light);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-rating {
+      display: flex;
+      color: gold;
+      margin-right: var(--spacing-xs);
+    }
+    
+    .product-reviews {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-button {
+      display: block;
+      text-align: center;
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 0;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .product-button:hover {
+      background-color: var(--color-secondary);
+      color: white;
+    }
+    
+    /* Buying guide section */
+    .buying-guide {
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .buying-guide-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      padding: var(--spacing-lg);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--spacing-md) 0;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      background-color: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: var(--spacing-sm);
+      flex-shrink: 0;
+      color: white;
+    }
+    
+    .feature-text {
+      flex-grow: 1;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    /* Comparison table section */
+    .comparison {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-neutral-100);
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .comparison-table th {
+      background-color: var(--color-neutral-200);
+      padding: var(--spacing-sm);
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    .comparison-table td {
+      padding: var(--spacing-sm);
+      border-top: 1px solid var(--color-neutral-200);
+    }
+    
+    .comparison-table tr:hover {
+      background-color: var(--color-neutral-100);
+    }
+    
+    .table-link {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    
+    /* Affiliate disclosure */
+    .disclosure {
+      padding: var(--spacing-lg) 0;
+      background-color: var(--color-neutral-100);
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+      border-top: 1px solid var(--color-neutral-200);
+    }
+    
+    .disclosure-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: var(--spacing-lg) 0;
+      background-color: var(--color-neutral-100);
+      border-top: 1px solid var(--color-neutral-200);
+    }
+    
+    .footer-inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    
+    .footer-column h3 {
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.25rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .footer-links a {
+      color: var(--color-text-light);
+    }
+    
+    .footer-links a:hover {
+      color: var(--color-primary);
+    }
+    
+    .newsletter-form {
+      display: flex;
+      margin-top: var(--spacing-sm);
+    }
+    
+    .newsletter-input {
+      flex-grow: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--color-neutral-300);
+      border-radius: 4px 0 0 4px;
+      font-family: var(--font-sans);
+    }
+    
+    .newsletter-button {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-button:hover {
+      background-color: var(--color-secondary);
+    }
+    
+    .footer-bottom {
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--color-neutral-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--color-neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero {
+        padding: var(--spacing-lg) 0;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .comparison-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Pulse<span>Home</span></a>
+        <nav class="nav">
+          <a href="#" class="nav-link">Smart Security</a>
+          <a href="#" class="nav-link">Smart Speakers</a>
+          <a href="#" class="nav-link">Smart Lighting</a>
+          <a href="#" class="nav-link">Smart Plugs</a>
+          <a href="#" class="nav-link">Resources</a>
+          <a href="#" class="nav-link">Blog</a>
+        </nav>
+        <a href="#" class="cta-button">Top Products</a>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Smart Security Cameras</h1>
+      <p>Protect your home with the latest smart security cameras and systems</p>
+    </div>
+  </section>
+  
+  <!-- Introduction Section -->
+  <section class="introduction">
+    <div class="container">
+      <div class="introduction-content">
+        <h2>Why Choose Smart Security Cameras?</h2>
+        <p>Smart security cameras offer peace of mind by allowing you to monitor your home from anywhere using your smartphone. With features like motion detection, night vision, two-way audio, and cloud storage, these devices provide comprehensive protection for your property and loved ones.</p>
+        <p>Whether you need indoor cameras to keep an eye on pets and children, outdoor cameras to monitor your property, or a complete security system with multiple cameras, we've reviewed the best options to help you make an informed decision.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Products Section -->
+  <section class="products">
+    <div class="container">
+      <h2 class="section-title">Top-Rated Security Cameras</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Best Seller</div>
+          </div>
+          <div class="product-content">
+            <h3>Blink Mini 2</h3>
+            <p>Compact indoor plug-in smart security camera with HD video, night vision, and motion detection</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★☆
+              </div>
+              <div class="product-reviews">
+                (7,745 reviews)
+              </div>
+            </div>
+            <div class="product-price">$19.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Best Value</div>
+          </div>
+          <div class="product-content">
+            <h3>Ring Indoor Cam (2nd Gen)</h3>
+            <p>Compact plug-in indoor camera with color night vision and two-way talk</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★★
+              </div>
+              <div class="product-reviews">
+                (12,345 reviews)
+              </div>
+            </div>
+            <div class="product-price">$59.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Premium</div>
+          </div>
+          <div class="product-content">
+            <h3>Arlo Pro 4 Spotlight Camera</h3>
+            <p>Wire-free 2K HDR security camera with color night vision and 160° viewing angle</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★★
+              </div>
+              <div class="product-reviews">
+                (8,932 reviews)
+              </div>
+            </div>
+            <div class="product-price">$199.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Buying Guide Section -->
+  <section class="buying-guide">
+    <div class="container">
+      <h2 class="section-title">Smart Security Camera Buying Guide</h2>
+      <div class="buying-guide-content">
+        <h3>Key Features to Consider</h3>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Resolution</div>
+              <p>Higher resolution (1080p or 2K) provides clearer images for identifying people and objects.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Field of View</div>
+              <p>Wider angles (130° or more) cover more area with fewer cameras.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Night Vision</div>
+              <p>Essential for 24/7 monitoring; color night vision provides more detail than infrared.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Power Source</div>
+              <p>Battery-powered cameras offer flexible placement but require recharging; wired cameras provide continuous power.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Storage Options</div>
+              <p>Cloud storage provides remote access but may require a subscription; local storage (SD card) has no recurring fees.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon">✓</div>
+            <div class="feature-text">
+              <div class="feature-title">Smart Home Integration</div>
+              <p>Compatibility with Alexa, Google Assistant, or HomeKit allows for voice control and automation.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Comparison Table Section -->
+  <section class="comparison">
+    <div class="container">
+      <h2 class="section-title">Compare Top Security Cameras</h2>
+      <div class="table-container">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Camera</th>
+              <th>Resolution</th>
+              <th>Field of View</th>
+              <th>Night Vision</th>
+              <th>Power</th>
+              <th>Price</th>
+              <th>Buy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Blink Mini 2</td>
+              <td>1080p HD</td>
+              <td>110°</td>
+              <td>Infrared</td>
+              <td>Wired</td>
+              <td>$19.99</td>
+              <td><a href="#" class="table-link">View on Amazon</a></td>
+            </tr>
+            <tr>
+              <td>Ring Indoor Cam (2nd Gen)</td>
+              <td>1080p HD</td>
+              <td>140°</td>
+              <td>Color</td>
+              <td>Wired</td>
+              <td>$59.99</td>
+              <td><a href="#" class="table-link">View on Amazon</a></td>
+            </tr>
+            <tr>
+              <td>Arlo Pro 4 Spotlight Camera</td>
+              <td>1080p HD</td>
+              <td>160°</td>
+              <td>Color</td>
+              <td>Battery</td>
+              <td>$199.99</td>
+              <td><a href="#" class="table-link">View on Amazon</a></td>
+            </tr>
+            <tr>
+              <td>Google Nest Cam</td>
+              <td>1080p HD</td>
+              <td>135°</td>
+              <td>HDR</td>
+              <td>Battery/Wired</td>
+              <td>$179.99</td>
+              <td><a href="#" class="table-link">View on Amazon</a></td>
+            </tr>
+            <tr>
+              <td>Wyze Cam v3</td>
+              <td>1080p HD</td>
+              <td>130°</td>
+              <td>Color</td>
+              <td>Wired</td>
+              <td>$35.98</td>
+              <td><a href="#" class="table-link">View on Amazon</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Affiliate Disclosure -->
+  <section class="disclosure">
+    <div class="container">
+      <div class="disclosure-content">
+        <strong>Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases. This means that if you click on a link to a product on Amazon from our site and make a purchase, we may receive a small commission at no additional cost to you. This helps support our work and allows us to continue providing valuable content.
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-column">
+          <h3>PulseHome</h3>
+          <p>Expert reviews and recommendations for the best smart home devices to transform your living space.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Categories</h3>
+          <ul class="footer-links">
+            <li><a href="#">Smart Security</a></li>
+            <li><a href="#">Smart Speakers</a></li>
+            <li><a href="#">Smart Lighting</a></li>
+            <li><a href="#">Smart Plugs</a></li>
+            <li><a href="#">Smart Thermostats</a></li>
+            <li><a href="#">Smart Locks</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Buying Guides</a></li>
+            <li><a href="#">Product Comparisons</a></li>
+            <li><a href="#">Smart Home Setup</a></li>
+            <li><a href="#">Troubleshooting</a></li>
+            <li><a href="#">Privacy & Security</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Stay Updated</h3>
+          <p>Subscribe to our newsletter for the latest smart home product reviews, deals, and tips.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" class="newsletter-input">
+            <button type="submit" class="newsletter-button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          <p>© 2025 PulseHome. All rights reserved.</p>
+          <p><strong>Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases.</p>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            F
+          </a>
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            T
+          </a>
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            I
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

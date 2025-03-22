@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseHome - Design Mockup</title>
+  <style>
+    /* Fora-inspired design system */
+    :root {
+      /* Typography */
+      --font-serif: 'Georgia', serif;
+      --font-sans: 'Helvetica Neue', Arial, sans-serif;
+      
+      /* Colors */
+      --color-background: #FFFFFF;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-primary: #3A5BF0;
+      --color-secondary: #6C63FF;
+      --color-accent: #FF6B6B;
+      --color-neutral-100: #F8F9FA;
+      --color-neutral-200: #E9ECEF;
+      --color-neutral-300: #DEE2E6;
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 2rem;
+      --spacing-lg: 4rem;
+      --spacing-xl: 8rem;
+    }
+    
+    /* Base styles */
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background);
+    }
+    
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      margin-top: 0;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.3;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    h3 {
+      font-size: 1.75rem;
+      line-height: 1.4;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    p {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--color-secondary);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+    
+    /* Header */
+    .header {
+      padding: var(--spacing-sm) 0;
+      border-bottom: 1px solid var(--color-neutral-200);
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    
+    .logo span {
+      color: var(--color-primary);
+    }
+    
+    .nav {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .nav-link {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+      position: relative;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    .cta-button {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--color-secondary);
+      color: white;
+    }
+    
+    /* Hero section */
+    .hero {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-neutral-100);
+      background-image: linear-gradient(135deg, rgba(58, 91, 240, 0.1) 0%, rgba(108, 99, 255, 0.1) 100%);
+      text-align: center;
+    }
+    
+    .hero h1 {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-text-light);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: var(--spacing-sm);
+      justify-content: center;
+    }
+    
+    .secondary-button {
+      background-color: white;
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      border: 1px solid var(--color-primary);
+      transition: all 0.3s ease;
+    }
+    
+    .secondary-button:hover {
+      background-color: var(--color-neutral-100);
+    }
+    
+    /* Categories section */
+    .categories {
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    .category-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-image {
+      height: 200px;
+      background-color: var(--color-neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .category-content {
+      padding: var(--spacing-md);
+    }
+    
+    .category-content h3 {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .category-content p {
+      color: var(--color-text-light);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    /* Products section */
+    .products {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-neutral-100);
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-image {
+      height: 200px;
+      background-color: var(--color-neutral-200);
+      position: relative;
+    }
+    
+    .product-tag {
+      position: absolute;
+      top: var(--spacing-xs);
+      right: var(--spacing-xs);
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .product-content {
+      padding: var(--spacing-md);
+    }
+    
+    .product-content h3 {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .product-content p {
+      color: var(--color-text-light);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-rating {
+      display: flex;
+      color: gold;
+      margin-right: var(--spacing-xs);
+    }
+    
+    .product-reviews {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .product-button {
+      display: block;
+      text-align: center;
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 0;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .product-button:hover {
+      background-color: var(--color-secondary);
+      color: white;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: var(--spacing-lg) 0;
+      background-color: var(--color-neutral-100);
+      border-top: 1px solid var(--color-neutral-200);
+    }
+    
+    .footer-inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    
+    .footer-column h3 {
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.25rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .footer-links a {
+      color: var(--color-text-light);
+    }
+    
+    .footer-links a:hover {
+      color: var(--color-primary);
+    }
+    
+    .newsletter-form {
+      display: flex;
+      margin-top: var(--spacing-sm);
+    }
+    
+    .newsletter-input {
+      flex-grow: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--color-neutral-300);
+      border-radius: 4px 0 0 4px;
+      font-family: var(--font-sans);
+    }
+    
+    .newsletter-button {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-button:hover {
+      background-color: var(--color-secondary);
+    }
+    
+    .footer-bottom {
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--color-neutral-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--color-neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero {
+        padding: var(--spacing-lg) 0;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Pulse<span>Home</span></a>
+        <nav class="nav">
+          <a href="#" class="nav-link">Smart Security</a>
+          <a href="#" class="nav-link">Smart Speakers</a>
+          <a href="#" class="nav-link">Smart Lighting</a>
+          <a href="#" class="nav-link">Smart Plugs</a>
+          <a href="#" class="nav-link">Resources</a>
+          <a href="#" class="nav-link">Blog</a>
+        </nav>
+        <a href="#" class="cta-button">Top Products</a>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Transform your living space with intelligent home technology</h1>
+      <p>Expert reviews, comparisons, and recommendations for the best smart home devices on the market.</p>
+      <div class="button-group">
+        <a href="#" class="cta-button">Explore Categories</a>
+        <a href="#" class="secondary-button">Top-Rated Products</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="container">
+      <h2 class="section-title">Featured Categories</h2>
+      <div class="category-grid">
+        <a href="#" class="category-card">
+          <div class="category-image">
+            <!-- Icon or image would go here -->
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#3A5BF0" stroke-width="2"/>
+              <path d="M12 16V12" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 8H12.01" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="category-content">
+            <h3>Smart Security Cameras</h3>
+            <p>Keep your home safe with the latest security cameras and systems</p>
+          </div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-image">
+            <!-- Icon or image would go here -->
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#3A5BF0" stroke-width="2"/>
+              <path d="M19 12H21" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M3 12H5" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 5V3" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 21V19" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="category-content">
+            <h3>Smart Speakers & Displays</h3>
+            <p>Voice-controlled assistants and smart displays for your connected home</p>
+          </div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-image">
+            <!-- Icon or image would go here -->
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 21H15" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 3V17" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 9L12 17L19 9" stroke="#3A5BF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="category-content">
+            <h3>Smart Lighting</h3>
+            <p>Transform your home with smart bulbs, strips, and lighting systems</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Products Section -->
+  <section class="products">
+    <div class="container">
+      <h2 class="section-title">Top-Rated Products</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Best Seller</div>
+          </div>
+          <div class="product-content">
+            <h3>Blink Mini 2</h3>
+            <p>Compact indoor plug-in smart security camera with HD video, night vision, and motion detection</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★☆
+              </div>
+              <div class="product-reviews">
+                (7,745 reviews)
+              </div>
+            </div>
+            <div class="product-price">$19.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Best Value</div>
+          </div>
+          <div class="product-content">
+            <h3>Echo Dot (5th Gen)</h3>
+            <p>Smart speaker with Alexa and improved sound for music streaming and smart home control</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★★
+              </div>
+              <div class="product-reviews">
+                (125,432 reviews)
+              </div>
+            </div>
+            <div class="product-price">$49.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <!-- Product image would go here -->
+            <div class="product-tag">Premium</div>
+          </div>
+          <div class="product-content">
+            <h3>Philips Hue White & Color Starter Kit</h3>
+            <p>Smart LED bulbs with hub that work with Alexa and Google Assistant</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                ★★★★★
+              </div>
+              <div class="product-reviews">
+                (32,145 reviews)
+              </div>
+            </div>
+            <div class="product-price">$179.99</div>
+            <a href="#" class="product-button">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-column">
+          <h3>PulseHome</h3>
+          <p>Expert reviews and recommendations for the best smart home devices to transform your living space.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Categories</h3>
+          <ul class="footer-links">
+            <li><a href="#">Smart Security</a></li>
+            <li><a href="#">Smart Speakers</a></li>
+            <li><a href="#">Smart Lighting</a></li>
+            <li><a href="#">Smart Plugs</a></li>
+            <li><a href="#">Smart Thermostats</a></li>
+            <li><a href="#">Smart Locks</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Buying Guides</a></li>
+            <li><a href="#">Product Comparisons</a></li>
+            <li><a href="#">Smart Home Setup</a></li>
+            <li><a href="#">Troubleshooting</a></li>
+            <li><a href="#">Privacy & Security</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Stay Updated</h3>
+          <p>Subscribe to our newsletter for the latest smart home product reviews, deals, and tips.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" class="newsletter-input">
+            <button type="submit" class="newsletter-button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          <p>© 2025 PulseHome. All rights reserved.</p>
+          <p><strong>Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases.</p>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            F
+          </a>
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            T
+          </a>
+          <a href="#" class="social-icon">
+            <!-- Social icon would go here -->
+            I
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
